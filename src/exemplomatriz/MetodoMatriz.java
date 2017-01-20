@@ -12,13 +12,16 @@ import javax.swing.JOptionPane;
  * @author Mario
  */
 public class MetodoMatriz {
-    
-    int [][] notas = new int[3][4];
+    int filas = pedirTamaño();
+    int columnas = pedirTamaño();
+    int [][] notas = new int[filas][columnas];
+    float [] notasMedias = new float[filas];
+    float [] notasModulo = new float[columnas];
     
     public void cargarMatriz(){
         
-        for(int f=0;f<notas.length;f++){
-            for(int c=0;c<notas[f].length;c++){
+        for(int f=0;f<filas;f++){
+            for(int c=0;c<columnas;c++){
                 notas [f][c] =pedirNota();
             }
     }
@@ -29,15 +32,15 @@ public class MetodoMatriz {
         
         do{
             
-            resultado= Integer.parseInt(JOptionPane.showInputDialog("Introduza o resultado"));
+            resultado= Integer.parseInt(JOptionPane.showInputDialog("Introduza as notas "));
         }while(resultado<1||resultado>10);
         return resultado;
         
     }
     public void amosarMatriz(){
         
-        for(int f=0;f<notas.length;f++){
-            for(int c=0;c<notas[f].length;c++){
+        for(int f=0;f<filas;f++){
+            for(int c=0;c<columnas;c++){
                 System.out.print(notas[f][c]+" ");
         }
         System.out.println("\n");
@@ -46,15 +49,38 @@ public class MetodoMatriz {
     
     public void calcularMedia(){
         int media =0;
-        for(int f=0;f<notas.length;f++){
+        for(int f=0;f<filas;f++){
+            
             media=0;
-            for(int c=0;c<notas.length;c++){
+            for(int c=0;c<columnas;c++){
               media= media +notas[f][c];
                  
             } 
            
-            System.out.println(media/notas.length);
+            notasMedias[f] = media/filas;
         }
-       // System.out.println("\n");
     }
+     public void calcularModulo(){
+         int acu =0;
+        
+         for(int c=0;c<columnas;c++){
+           acu=0;
+             
+             for(int f=0;f<filas;f++){
+                 
+                 acu= acu+notas[f][c];
+                 
+             }    
+                 
+                 notasModulo [c] = acu/filas;
+           
+             System.out.println(notasModulo[c]);
+         
+     }
+    }
+public int pedirTamaño(){
+    
+    return  Integer.parseInt(JOptionPane.showInputDialog("Tamaño"));
+
+}
 }
